@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+	  xmlns:th="http://thymeleaf.org">
+ 	
+ 	<body>
+ 		<h1>Olá! Thymeleaf Configurado!</h1>
+ 		
+ 		<form  method="POST">
+ 			<span th:text="${mensagem}">Erro no formulário!</span>
+ 			<div class="">
+	 			<label for="sku">SKU</label>
+	 			<input type="text" name="sku" id="sku" />
+ 			</div>
+ 			
+ 			<div class="">
+ 				<label for="nome">Nome</label>
+ 				<input type="text" name="nome" id="nome">
+			</div>
+			
+			<div class="">			
+	 			<label for="descricao">Descricao</label>
+	 			<textarea name="descricao" id="descricao" cols="30" rows="10"></textarea>
+			</div>
+			
+ 			<input type="submit" value="Salvar" />
+ 		</form>
+ 	</body>
+	
+</html>
