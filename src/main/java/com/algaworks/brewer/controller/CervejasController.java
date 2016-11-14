@@ -15,7 +15,8 @@ import com.algaworks.brewer.model.Cerveja;
 public class CervejasController {
 	
 	@RequestMapping("/cervejas/novo")
-	public String novo(){
+	public String novo(Cerveja cerveja){
+		
 		return "cerveja/CadastroCerveja";
 	}
 	
@@ -25,7 +26,7 @@ public class CervejasController {
 		if( result.hasErrors( )){
 			model.addAttribute("mensagem", "Erro no formulário");
 			System.out.println("Tem erro sim!");
-			return "cerveja/CadastroCerveja";
+			return novo(cerveja);
 		}
 		
 		attributes.addFlashAttribute("mensagem", "Cerveja salva com sucesso!"); //flash attribute permanece mesmo depois do redirect
@@ -33,4 +34,5 @@ public class CervejasController {
 		System.out.println(">>>>>>>>> SKU: " + cerveja.getSku());
 		return "redirect:/cervejas/novo";
 	}
+	
 }
