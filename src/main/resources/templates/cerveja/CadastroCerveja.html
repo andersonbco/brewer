@@ -46,6 +46,7 @@
 						<div class="bw-field-action">
 							<select id="estilo" class="form-control">
 								<option value="">Selecione o estilo</option>
+								<option th:each="estilo : ${estilos}" th:value="${estilo.codigo}" th:text="${estilo.nome}"></option>
 							</select>							
 							<div class="bw-field-action__icon">
 								<a href="#" data-toggle="modal" data-target="#modalCadastroRapidoEstilo">
@@ -59,6 +60,7 @@
 						<label for="sabor">Sabor</label>
 						<select id="sabor" class="form-control">
 							<option value="">Selecione o sabor</option>
+							<option th:each="sabor : ${sabores}" th:value="${sabor}" th:text="${sabor.descricao}"></option>
 						</select>
 					</div>
 							
@@ -73,14 +75,12 @@
 					<div class="form-group  col-lg-3 col-sm-6"> <!-- Colocamos col-sm-6 para que o componente não caiba na tela propositalmente  -->
 						<label for="origem">Origem</label>      <!-- e quebre para a linha seguinte  -->
 						<div>
-							<div class="radio radio-inline">
-								<input type="radio" name="origem"/>
-								<label>Nacional</label>
-							</div>
-							<div class="radio radio-inline">
-								<input type="radio" name="origem"/>
-								<label>Internacional</label>
-							</div>
+							<th:block th:each="origem : ${origens}">
+								<div class="radio radio-inline">
+									<input th:id="|id_${origem}|" type="radio" th:value="${origem}" name="origem"/>
+									<label th:for="|id_${origem}|" th:text="${origem.descricao}"></label>
+								</div>
+							</th:block>
 						</div>
 					</div>
 				</div>
