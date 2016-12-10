@@ -15,12 +15,16 @@ import com.algaworks.brewer.model.Cerveja;
 import com.algaworks.brewer.model.Origem;
 import com.algaworks.brewer.model.Sabor;
 import com.algaworks.brewer.repository.Estilos;
+import com.algaworks.brewer.service.CadastroCervejaService;
 
 @Controller
 public class CervejasController {
 	
 	@Autowired
 	Estilos estilos;
+	
+	@Autowired
+	CadastroCervejaService cervejaService;
 	
 	@RequestMapping("/cervejas/novo")
 	public ModelAndView novo(Cerveja cerveja){
@@ -37,22 +41,11 @@ public class CervejasController {
 	@RequestMapping(value = "/cervejas/novo", method = RequestMethod.POST)
 	public ModelAndView cadastrar(@Valid Cerveja cerveja, BindingResult result, Model model, RedirectAttributes attributes){
 		
-//		if( result.hasErrors( )){
-//			model.addAttribute("mensagem", "Erro no formulário");
-//			System.out.println("Tem erro sim!");
-//			return novo(cerveja);
-//		}
+		if( result.hasErrors( ))
+			return novo(cerveja);
 		
+		cervejaService.salvar(cerveja);
 		attributes.addFlashAttribute("mensagem", "Cerveja salva com sucesso!"); //flash attribute permanece mesmo depois do redirect
-		
-		System.out.println(">>>>>>>>> SKU: " + cerveja.getSku());
-		System.out.println(">>>>>>>>> Nome: " + cerveja.getNome());
-		System.out.println(">>>>>>>>> Descrição: " + cerveja.getDescricao());
-		System.out.println(">>>>>>>>> Origem: " + cerveja.getOrigem());
-		System.out.println(">>>>>>>>> Sabor: " + cerveja.getSabor());
-		
-		if(cerveja.getEstilo() != null)
-			System.out.println(">>>>>>>>> Estilo: " + cerveja.getEstilo().getCodigo());
 		
 		return new ModelAndView("redirect:/cervejas/novo");
 	}
